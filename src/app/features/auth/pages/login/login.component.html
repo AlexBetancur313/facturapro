@@ -1,0 +1,68 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Bienvenido de Nuevo</mat-card-title>
+      <mat-card-subtitle>Inicia sesión para continuar</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Campo para el Email -->
+        <mat-form-field appearance="outline">
+          <mat-label>Correo Electrónico</mat-label>
+          <input
+            matInput
+            placeholder="tu@correo.com"
+            formControlName="email"
+            type="email"
+          />
+          <mat-icon matSuffix>email</mat-icon>
+
+          <!-- CORRECCIÓN AQUÍ: Usamos *ngIf en lugar de @if -->
+          <mat-error *ngIf="email?.hasError('required') && email?.touched">
+            El correo es requerido.
+          </mat-error>
+          <mat-error *ngIf="email?.hasError('email') && email?.touched">
+            Por favor, ingresa un correo válido.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Campo para la Contraseña -->
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="togglePasswordVisibility($event)"
+            aria-label="Toggle password visibility"
+          >
+            <mat-icon>{{
+              hidePassword ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+
+          <!-- CORRECCIÓN AQUÍ: Usamos *ngIf en lugar de @if -->
+          <mat-error
+            *ngIf="password?.hasError('required') && password?.touched"
+          >
+            La contraseña es requerida.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Botón de envío -->
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="loginForm.invalid"
+        >
+          Ingresar
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

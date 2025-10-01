@@ -1,0 +1,38 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Restamos la altura del header (64px) para centrar en el espacio restante */
+  height: calc(100vh - 64px);
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.login-card {
+  max-width: 400px;
+  width: 100%;
+}
+
+/* Usamos ::ng-deep para asegurar que los estilos apliquen correctamente
+   dentro de los componentes de Angular Material que tienen su propia encapsulación. */
+:host ::ng-deep mat-card-header {
+  text-align: center;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+mat-card-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espacio entre los campos del formulario */
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px 0;
+}

@@ -1,0 +1,78 @@
+.editor-card {
+  max-width: 900px;
+  margin: 2rem auto;
+}
+
+.form-section,
+.items-section,
+.totals-section {
+  margin-bottom: 2rem;
+}
+
+.document-type-selector {
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 20px;
+}
+
+.client-fields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.client-fields h3 {
+  grid-column: 1 / -1; /* El título ocupa todas las columnas */
+  margin-bottom: 0;
+}
+
+/* Estilos de la tabla de ítems */
+.items-table {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1.5fr 1.5fr 0.5fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.table-header {
+  font-weight: bold;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.item-total {
+  font-weight: 500;
+  text-align: right;
+  padding-right: 10px;
+}
+
+/* Estilos de los totales */
+.totals-section {
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.grand-total {
+  font-size: 1.2rem;
+  border-top: 2px solid #3f51b5; /* Color primario de Material */
+  border-bottom: none;
+}
