@@ -1,1 +1,10 @@
-<h1>Hola</h1>
+<!-- La cabecera, que funciona correctamente -->
+<app-header></app-header>
+
+<!-- ESTA ES LA PIEZA CLAVE QUE PROBABLEMENTE FALTA -->
+<!-- El <router-outlet> es el portal donde Angular "dibuja"
+     el LoginComponent, el DashboardComponent, y todas las demás páginas.
+     Sin él, no se muestra nada. -->
+<main>
+  <router-outlet></router-outlet>
+</main>

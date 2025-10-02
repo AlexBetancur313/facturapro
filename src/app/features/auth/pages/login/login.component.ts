@@ -1,33 +1,14 @@
 import { Component, inject } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { AuthService } from '../../../../core/services/auth.service';
-
-// Importaciones de Angular y Angular Material (asegúrate de tenerlas)
-import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
+  // --- ESTA ES LA CORRECCIÓN CLAVE ---
+  // Hemos quitado la propiedad 'imports' por completo.
+  // Ahora este componente es "clásico" y depende de su módulo (AuthModule)
+  // para obtener todo lo que necesita (CommonModule, MatCardModule, etc.).
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
@@ -58,16 +39,20 @@ export class LoginComponent {
 
     const { email, password } = this.loginForm.value;
 
-    // Llamamos a nuestro servicio de autenticación.
-    this.authService.login(email!, password!).subscribe((user) => {
-      if (user) {
-        // Si el login es exitoso, navegamos al dashboard.
-        this.router.navigate(['/dashboard']);
-      } else {
-        // A futuro, aquí mostraremos un error al usuario.
-        console.error('El email o la contraseña son incorrectos.');
-      }
-    });
+    if (email && password) {
+      // Llamamos a nuestro servicio de autenticación.
+      this.authService.login(email, password).subscribe({
+        next: (user) => {
+          if (user) {
+            // La navegación al dashboard ya se hace dentro del servicio.
+            console.log('Login exitoso, navegando al dashboard...');
+          }
+        },
+        error: (err) => {
+          console.error('El email o la contraseña son incorrectos.', err);
+        },
+      });
+    }
   }
 
   togglePasswordVisibility(event: Event) {

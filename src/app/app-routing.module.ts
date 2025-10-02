@@ -1,40 +1,35 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardHomeComponent } from './features/dashboard/pages/dashboard-home/dashboard-home.component';
-import { AuthGuard } from './core/guards/auth.guards';
+import { AuthGuard } from './core/guards/auth.guard';
 
-// Aquí definimos las rutas, igual que antes.
 const routes: Routes = [
   {
-    // Cuando la URL empiece con 'auth', carga las rutas definidas en AUTH_ROUTES
     path: 'auth',
+    // Carga el MÓDULO completo cuando el usuario va a una ruta '/auth/...'.
     loadChildren: () =>
-      import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
+      import('./features/auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    // Si un usuario entra a la raíz del sitio (ej: tudominio.com),
-    // lo redirigimos a la página de login.
+    path: 'dashboard',
+    component: DashboardHomeComponent,
+    canActivate: [AuthGuard], // Ruta protegida.
+  },
+  {
+    // Redirección por defecto al entrar a la web.
     path: '',
     redirectTo: '/auth/login',
     pathMatch: 'full',
   },
   {
-    path: 'dashboard',
-    component: DashboardHomeComponent,
-    canActivate: [AuthGuard], // <-- ¡AQUÍ ESTÁ LA PROTECCIÓN!
-  },
-  {
-    // Si el usuario intenta ir a cualquier otra ruta que no exista,
-    // también lo redirigimos al login.
+    // Cualquier otra ruta que no exista, redirige al login.
     path: '**',
     redirectTo: '/auth/login',
   },
 ];
 
 @NgModule({
-  // Aquí es donde la "magia" ocurre.
-  // RouterModule.forRoot(routes) inicializa el enrutador con nuestras rutas.
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule], // Lo exportamos para que AppModule pueda usarlo.
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
