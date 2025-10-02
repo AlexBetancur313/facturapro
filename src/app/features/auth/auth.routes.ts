@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
+import { LoginComponent } from './pages/login/login.component';
 
-// Rutas específicas para la característica de autenticación
+// Define que dentro de la sección 'auth', la ruta 'login' carga el LoginComponent.
 export const AUTH_ROUTES: Routes = [
   {
-    path: 'login', // La URL será tudominio.com/auth/login
-    loadComponent: () =>
-      import('./pages/login/login.component').then((m) => m.LoginComponent),
+    path: 'login',
+    component: LoginComponent,
   },
   {
-    // Redirige cualquier ruta vacía dentro de 'auth' a 'login'
+    // Si alguien entra a '/auth' sin especificar más, lo redirige a '/auth/login'.
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',
